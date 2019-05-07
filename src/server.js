@@ -84,6 +84,7 @@ class Server extends EE {
     }
 
     const {
+      src,
       cwd,
       port,
       dev,
@@ -94,6 +95,7 @@ class Server extends EE {
       throw error('INVALID_CWD', cwd)
     }
 
+    this._src = src
     this._cwd = cwd
     this._port = port
     this._dev = dev
@@ -264,7 +266,7 @@ class Server extends EE {
       // TODO
       dev: this._dev,
       conf,
-      dir: this._cwd
+      dir: this._src || this._cwd
     })
 
     await app.prepare()
@@ -374,6 +376,10 @@ class Server extends EE {
 
   get port () {
     return this._port
+  }
+
+  get srcDir () {
+    return this._src
   }
 
   async ready () {

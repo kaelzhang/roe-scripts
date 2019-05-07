@@ -54,6 +54,7 @@ module.exports = class Sandbox {
     const {
       serverClassPath = path.join(__dirname, 'server.js'),
       configLoaderClassPath = path.join(__dirname, 'config-loader.js'),
+      src,
       cwd,
       dev,
       port,
@@ -68,9 +69,14 @@ module.exports = class Sandbox {
       throw error('INVALID_CWD', cwd)
     }
 
+    if (!isString(src)) {
+      throw error('INVALID_SRC', src)
+    }
+
     this._options = {
       serverClassPath,
       configLoaderClassPath,
+      src,
       cwd,
       dev: !!dev,
       port,
